@@ -1,8 +1,10 @@
+dotenv
 requests==2.31.0
 arcade==2.6.17
-RPi.GPIO==0.7.0
+#no RPi.GPIO in Mac OS
+#RPi.GPIO==0.7.1
 pydub==0.25.1
-numpy==1.19.5
+numpy==1.23.5
 sounddevice==0.4.6
 pymysql==1.1.0
 cn2an==0.5.20
@@ -10,7 +12,7 @@ duckduckgo_search==5.0
 flask==2.3.2
 SpeechRecognition==3.10.0
 openai==0.27.8
-pyaudio==0.2.11
+pyaudio==0.2.14
 websocket-client==1.7.0
 paho-mqtt==1.6.1
 loguru==0.7.2
