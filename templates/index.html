@@ -191,6 +191,7 @@
             }
         }
     </style>
+    <script src="{{ url_for('static', filename='js/marked.min.js') }}"></script>
     <script>
         function updateConfig(key, value) {
             fetch('/update_config', {
@@ -217,7 +218,7 @@
                 .then(data => {
                     // 更新页面上的 'answer' 值
                     if (document.getElementById('answer') && data.answer !== null) {
-                        document.getElementById('answer').textContent = data.answer;
+                        document.getElementById('answer').innerHTML = marked.parse(data.answer);
                     }
                 })
                 .catch((error) => {
