@@ -7,6 +7,7 @@ import threading
 from queue import Queue
 from loguru import logger
 from tts_stream import TTSManager
+import re
 
 # DeepSeek API 配置
 url = "https://api.siliconflow.cn/v1/chat/completions"
@@ -27,6 +28,38 @@ def init_system():
     system_message = get_system_prompt()
     messages.append(system_message)
 
+def remove_markdown(text):
+    """
+    移除文本中的 Markdown 标记，保留纯文本
+    """
+    # 移除 Markdown 链接
+    text = re.sub(r'\[.*?\]\(.*?\)', '', text)
+    
+    # 移除 Markdown 粗体、斜体、删除线
+    text = re.sub(r'(\*\*|__)(.*?)\1', r'\2', text)  # 粗体
+    text = re.sub(r'(\*|_)(.*?)\1', r'\2', text)  # 斜体
+    text = re.sub(r'~~(.*?)~~', r'\1', text)  # 删除线
+
+    # 移除 Markdown 标题（# 开头的）
+    text = re.sub(r'^\s*#{1,6}\s+', '', text, flags=re.MULTILINE)
+
+    # 移除 Markdown 行内代码和代码块
+    text = re.sub(r'`{1,2}([^`]*)`{1,2}', r'\1', text)  # 行内代码
+    text = re.sub(r'```.*?```', '', text, flags=re.DOTALL)  # 代码块，多行处理
+
+    # 移除 Markdown 引用
+    text = re.sub(r'^\s*>+\s?', '', text, flags=re.MULTILINE)
+
+    # 移除 Markdown 无序列表（- * +）
+    text = re.sub(r'^\s*[-*+] ', '', text, flags=re.MULTILINE)
+
+    # 移除 Markdown 有序列表（1. 2. 3.）
+    text = re.sub(r'^\s*\d+\.\s+', '', text, flags=re.MULTILINE)
+
+    # 移除 Markdown 任务列表（- [ ] 或 - [x]）
+    text = re.sub(r'- \[.\] ', '', text)
+
+    return text.strip()  # 清除头尾空格
 
 def chat_request_stream():
     """
@@ -70,8 +103,9 @@ def chat_request_stream():
                                 content = json_data["choices"][0]["delta"].get("content", "") or ""
                                 print(content, end='', flush=True)
                                 ai_response += content
-                                if content.strip():
-                                    response_queue.put(content)  # 发送给 TTS
+                                clean_content = remove_markdown(content)  # 移除 Markdown 标记
+                                if clean_content.strip():
+                                    response_queue.put(clean_content)  # 发送给 TTS
                             if "usage" in json_data:
                                 total_tokens = json_data["usage"].get("total_tokens", 0)
                         except json.JSONDecodeError:
