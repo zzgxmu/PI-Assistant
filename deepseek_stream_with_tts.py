@@ -32,6 +32,8 @@ def remove_markdown(text):
     """
     移除文本中的 Markdown 标记，保留纯文本
     """
+    # 移除 Markdown 标题（# 开头的行）
+    text = re.sub(r'^\s*#+\s*', '', text, flags=re.MULTILINE)
     # 移除 Markdown 链接
     text = re.sub(r'\[.*?\]\(.*?\)', '', text)
     
