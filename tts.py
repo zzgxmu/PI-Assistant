@@ -3,6 +3,7 @@ import requests
 import time
 from play import play
 from const_config import azure_key
+from const_config import speech_synthesis_voice_name
 from loguru import logger
 url='https://eastasia.tts.speech.microsoft.com/cognitiveservices/v1'
 header={
@@ -15,7 +16,7 @@ dialog=requests.session()
 def ssml_wav(text,filename):
     ssml_string=f'''<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
        xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="zh-CN">
-    <voice name="zh-CN-XiaoxiaoNeural">
+    <voice name="{speech_synthesis_voice_name}">
               <mstts:express-as role="YoungAdultFemale" style="friendly">
                 {text}       </mstts:express-as>
     </voice>
@@ -37,7 +38,7 @@ def ssml_save(text,filename):
 }
     ssml_string=f'''<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
        xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="zh-CN">
-    <voice name="zh-CN-XiaoxiaoNeural">
+    <voice name="{speech_synthesis_voice_name}">
               <mstts:express-as role="YoungAdultFemale" style="friendly">
                 {text}       </mstts:express-as>
     </voice>

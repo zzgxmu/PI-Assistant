@@ -5,6 +5,7 @@ from loguru import logger
 from queue import Empty
 import time
 from const_config import azure_key
+from const_config import speech_synthesis_voice_name
 
 class TTSManager:
     def __init__(self, response_queue):
@@ -20,7 +21,7 @@ class TTSManager:
             endpoint="wss://eastasia.tts.speech.microsoft.com/cognitiveservices/websocket/v2",
             subscription=azure_key
         )
-        self.speech_config.speech_synthesis_voice_name = "zh-CN-XiaoxiaoNeural"
+        self.speech_config.speech_synthesis_voice_name = speech_synthesis_voice_name
 
         # 创建 TTS 输出流
         self.custom_callback = self.CustomPushStreamCallback(self)

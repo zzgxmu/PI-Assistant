@@ -4,7 +4,7 @@ import os
 import pickle
 import json
 import azure.cognitiveservices.speech as speechsdk
-from const_config import sfapikey ,azure_key, deepseek_model
+from const_config import sfapikey ,azure_key, deepseek_model, speech_synthesis_voice_name
 from loguru import logger
 import threading
 import pyaudio
@@ -62,7 +62,7 @@ class CustomPushStreamCallback(speechsdk.audio.PushAudioOutputStreamCallback):
 speech_config = speechsdk.SpeechConfig(
     endpoint="wss://eastasia.tts.speech.microsoft.com/cognitiveservices/websocket/v2",
     subscription=azure_key)
-speech_config.speech_synthesis_voice_name = "zh-CN-XiaoxiaoNeural"
+speech_config.speech_synthesis_voice_name = speech_synthesis_voice_name
 
 # 创建自定义音频输出流
 custom_callback = CustomPushStreamCallback()

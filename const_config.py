@@ -26,6 +26,7 @@ chat_or_standard = os.getenv('CHAT_OR_STANDARD', 'True') == 'True' #采用聊天
 ########语音服务(TTS and STT)##########
 use_online_recognize = os.getenv('USE_ONLINE_RECOGNIZE', 'True') == 'True' #是否采用线上语音识别（效果好，针对优化）
 azure_key = os.getenv('AZURE_KEY', '')   #使用线上语音识别需填写 Azrue key
+speech_synthesis_voice_name = os.getenv('SPEECH_SYNTHESIS_VOICE_NAME', 'zh-CN-XiaoxiaoNeural')
 
 #########语音唤醒模块(二选一)###########
 snowboy_enable = os.getenv('SNOWBOY_ENABLE', 'False') == 'True' #是否加载snowboy模块，需提前安装好
