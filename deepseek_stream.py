@@ -4,7 +4,7 @@ import json
 import threading
 from queue import Queue
 from loguru import logger
-from const_config import sfapikey
+from const_config import sfapikey, deepseek_model
 from tts_stream import TTSManager
 
 # DeepSeek API 配置
@@ -42,7 +42,7 @@ def chat_request_stream():
         "Content-Type": "application/json"
     }
     payload = {
-        "model": "Pro/deepseek-ai/DeepSeek-V3",
+        "model": deepseek_model,
         "messages": messages,
         "stream": True,
         "max_tokens": 512,

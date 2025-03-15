@@ -4,7 +4,7 @@ import os
 import pickle
 import json
 import azure.cognitiveservices.speech as speechsdk
-from const_config import sfapikey ,azure_key
+from const_config import sfapikey ,azure_key, deepseek_model
 from loguru import logger
 import threading
 import pyaudio
@@ -109,7 +109,7 @@ def chat_request_stream():
         "Content-Type": "application/json"
     }
     payload = {
-        "model": "Pro/deepseek-ai/DeepSeek-V3",
+        "model": deepseek_model,
         "messages": messages,
         "stream": True,
         "max_tokens": 512,

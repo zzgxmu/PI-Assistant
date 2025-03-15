@@ -8,6 +8,7 @@ load_dotenv()
 
 use_deepseek = os.getenv('USE_DEEPSEEK', 'True') == 'True'
 sfapikey = os.getenv('SFAPIKEY', '')
+deepseek_model = os.getenv('DEEPSEEK_MODEL', 'Pro/deepseek-ai/DeepSeek-V3')
 
 use_openai = os.getenv('USE_OPENAI', 'False') == 'True'
 openapikey = os.getenv('OPENAPIKEY', '')

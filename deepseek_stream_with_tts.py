@@ -2,7 +2,7 @@ import requests
 import os
 import pickle
 import json
-from const_config import sfapikey
+from const_config import sfapikey, deepseek_model
 import threading
 from queue import Queue
 from loguru import logger
@@ -38,7 +38,7 @@ def chat_request_stream():
         "Content-Type": "application/json"
     }
     payload = {
-        "model": "Pro/deepseek-ai/DeepSeek-V3",
+        "model": deepseek_model,
         "messages": messages,
         "stream": True,  # 启用流式返回
         "max_tokens": 512,

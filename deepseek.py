@@ -4,6 +4,7 @@ import requests
 import os
 import pickle
 from const_config import sfapikey
+from const_config import deepseek_model
 from loguru import logger
 
 
@@ -35,7 +36,7 @@ def chat_request():
         "Content-Type": "application/json"
     }
     payload = {
-        "model": "Pro/deepseek-ai/DeepSeek-V3",
+        "model": deepseek_model,
         "messages": messages,
         "stream": False,
         "max_tokens": 512,
