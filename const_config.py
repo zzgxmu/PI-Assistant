@@ -39,6 +39,7 @@ porcupine_keyword_name = os.getenv('PORCUPINE_KEYWORD_NAME', 'happiness_en_raspb
 
 #注:唤醒功能默认关闭，运行时需要在ip:5000将wakebyhw手动勾选，开启唤醒功能
 ##############
+wakebyhw = os.getenv('WAKEBYHW', 'False') == 'True' #是否开启唤醒功能
 
 proxy = {
     'http': os.getenv('PROXY_HTTP', 'http://127.0.0.1:10810'),

@@ -1,6 +1,7 @@
 import json
 from datetime import datetime
 from loguru import logger
+from const_config import wakebyhw
 
 # 控制变量,不可为None
 parmas = {
@@ -14,7 +15,7 @@ parmas = {
     "answer": "晓晓已上线，有什么可以帮您的吗？",
     "music_volume": 0.25,
     "general_volume": 0.5,
-    "wakebyhw": False,
+    "wakebyhw": wakebyhw,
     "hw_started": False,
     "Noticenotify": True,
     "timenotify": True,
