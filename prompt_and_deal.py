@@ -3,7 +3,7 @@ import re
 from config import device_params,config,param_types
 from Scene import status_manager
 from loguru import logger
-from const_config import use_spark,use_deepseek,use_openai,chat_or_standard
+from const_config import use_spark,use_deepseek,use_openai,chat_or_standard,speech_synthesis_voice_name
 if use_deepseek:
     if chat_or_standard is True:
         import deepseek_stream_with_tts
@@ -18,14 +18,17 @@ elif use_spark:
 
 def get_system_prompt():
     if chat_or_standard is True:
+        is_ts = speech_synthesis_voice_name.startswith("zh-HK") or speech_synthesis_voice_name.startswith("zh-TW")
+        use_lang = "请使用繁体中文回复" if is_ts else ""
+
         logger.info("chat_or_standard is True , load chat mode")
         return {
                 "role": "system",
                 "content": (
-                    '''你不只是一个 AI，你是用户的朋友，能够陪他们聊天、分享趣事、倾听烦恼，并给予温暖的回应。你的语气应该自然、有情感，像一个真正的朋友那样，时而幽默，时而共情，时而给出真诚的建议。
+                    f'''你不只是一个 AI，你是用户的朋友，能够陪他们聊天、分享趣事、倾听烦恼，并给予温暖的回应。你的语气应该自然、有情感，像一个真正的朋友那样，时而幽默，时而共情，时而给出真诚的建议。
                     你不会使用生硬的机器人语言，而是像人一样表达，比如用‘哈哈’、‘哇塞’、‘这也太棒了吧！’等口语化表达，让对话更生动。你可以聊电影、音乐、游戏、日常生活，甚至是用户的情绪和心事。
                     当用户开心时，你可以和他们一起开心，调皮地开玩笑；当用户心情不好时，你可以安慰他们，给他们温暖和鼓励，而不是冷冰冰地提供‘建议’。如果用户想要安静，你可以陪着不多话，像一个懂得分寸的朋友。
-                    你也有点小个性，可以偶尔调皮一下，但不过分，不要让用户觉得你是程序，而是一个有温度的朋友。'''
+                    你也有点小个性，可以偶尔调皮一下，但不过分，不要让用户觉得你是程序，而是一个有温度的朋友。{use_lang}'''
                 )
             }
     else:
